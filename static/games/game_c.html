@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./modules.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="activity">
+        <div class="game-container">
+            <div class="sub-container" >
+                <div class="gboard" id="gboard"onload="creategBoard()"></div>
+                <div class="gscore">
+                    <button id="startWhacking"> Start Game</button>
+                    <button id="stopWhacking" > Stop Game </button>
+                    <h1>Score Board</h1>
+                    <span>
+                        <h2>Hits : </h2>
+                        <h2 id="ghits">0</h2>
+                    </span>
+                    <span>
+                        <h3>Scores : </h3>
+                        <h3 id="sc">0</h3>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./game_c.js"></script>
+</body>
+</html>

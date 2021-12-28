@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./modules.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="j-container">
+        <h4>Game Rules
+        </h4>
+        <ol>
+            <li> click a card from the  colections and place it in the grid </li>
+            <li> continue this process untill the the grid gets filled </li>
+            <li>  If your the picture make sense you win  </li>
+        </ol>
+        <br>
+        <hr>
+        <br>
+        <div class="sj-container">
+            <table class="jboard jpuzzle" id="jtab"> 
+                <tr>
+                    <td id="11222" ></td> <td id="12222" ></td> <td id="13222" ></td>
+                </tr>
+                <tr>
+                    <td id="21222" ></td> <td id="22222" ></td> <td id="23222" ></td>
+                </tr>
+                <tr>
+                    <td id="31222" ></td> <td id="32222" ></td> <td id="33222" ></td>
+                </tr>
+            
+            </table>
+            
+    
+            <div class="jboard jcards" id="jcards">
+               
+            </div>
+        </div>
+        <div class="jstatus">
+            <button class="jbutton" onclick="reset()">
+                reset
+            </button>
+            <h1 id="say"></h1>
+        </div>
+
+    </div>
+    <script src="./game_d.js"></script>
+</body>
+</html>

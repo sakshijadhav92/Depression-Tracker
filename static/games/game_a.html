@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./modules.css">
+    <title>Document</title>
+</head>
+<body>
+    <ul>Game rules
+        <li>click a card to flip it </li>
+        <li>click another card then </li>
+        <li>if the cards are a match then they get locked</li>
+        <li>likewise when all cards get locked you win !</li>
+    </ul>
+    <div class="activity" >
+        <div class="game-container" >
+            <div class="sub-container" >
+                <div class="game">
+                    <span class="score">
+                        <span style="width: 350px; display:flex; padding: 10px;"><h1>Score : </h1> <h1 id ="score"> 0 </h1></span>
+                        <span style="width: 400px; display:flex; padding: 10px;"><h1>Failure : </h1><h1 id="failed"> 0 </h1></span>
+                    </span>
+                    <div class="grid" id="board">
+                    </div>
+                </div>
+                <div class="comments">
+                    <h2>Status</h2>
+                    <h1 id="comments"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./game_a.js"></script>
+</body>
+</html>

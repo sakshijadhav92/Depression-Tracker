@@ -1,0 +1,290 @@
+
+.activities{
+    display: flex;
+    padding: 80px 0px;
+    position: relative;
+    background-color: whitesmoke;
+    flex-direction: column;
+}
+ 
+.activity{
+    width:100%;
+    padding: 50px 0px;
+}
+/*-----------------------------------------Clock-----------------------------------------*/
+.n1-block{ 
+    margin: auto;
+    background-image: url(../images/clock.png);
+    background-repeat: no-repeat;
+    background-size: 95%;
+    background-position: center;
+    width: 60vw;
+    height: 60vw;
+    display:flex; transition: all 1s ease-in-out; opacity: 0; transform: scale(0.1);
+    position:relative; flex-direction: column; align-items: center;
+}
+.sec-hand {
+    left: 50%;
+    top: 10%;
+    width: 1%;
+    transform-origin: bottom;
+    position: absolute;
+    background: darkslategrey;
+    border-radius: 10px 0px 10px 0px;
+    height: 40%;
+}
+.min-hand {
+    left: 50%;
+    width: 1%;
+    top: 20%;
+    transform-origin: bottom;
+    position: absolute;
+    background: darkslategray;
+    border-radius: 10px 0px 10px 0px;
+    height: 30%;
+}
+.hr-hand {
+    left: 50%;
+    top: 27%;
+    transform-origin: bottom;
+    position: absolute;
+    width: 1%;
+    background: darkslategray;
+       border-radius: 10px 0px 10px 0px;
+    height: 23%;
+}
+
+.pop{
+    opacity:1; transform:scale(1);
+}
+/*-----------------------------------------Clock-----------------------------------------*/
+
+/*-------------------------------------MATCH--------------------------------------------*/
+.game-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position:relative; 
+    height:auto;
+    width: 100%;
+    background:whitesmoke;
+}
+.sub-container{
+    width:100%;
+    display:flex; justify-content: space-evenly;
+}
+.grid{
+    height: 320px; width: 320px; border: 1px solid black; box-shadow:0px 0px 7px 0px;
+    display:flex; flex-wrap: wrap;
+}
+.imgc{
+    height: 25%; width:25%;
+}
+.game{
+    display:flex;  flex-direction:column; align-items: center;
+}
+.score{
+    display:flex; justify-content: center; width: 320px;   
+}
+.comments{
+    display:flex; flex-direction :column; width: 300px; align-items:center; padding: 100px 10px 70px 10px;
+}
+
+.header{
+    background: cornflowerblue; padding: 10px; font-size: 30px; color:white; font-weight:bold;
+}
+/*-------------------------------------MATCH--------------------------------------------*/
+
+/*-------------------------------------Build Image--------------------------------------------*/
+#boardb{
+    box-shadow: 0px 0px 1px 0px black;
+    border: none;
+    height: 282px; width:282px;
+    padding:10px;
+    position:relative;
+}
+.board-b{
+    display: flex; 
+    flex-wrap: wrap;
+}
+.tiles{
+    margin: 0;
+    position: absolute;
+    height: 100px; width: 100px;
+    /* padding: 10px;  */
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 0px 1px 0px black;
+}
+
+fun{
+    padding: 30px 0px;
+}
+/*-------------------------------------Build Image--------------------------------------------*/
+/*-------------------------------------WhackaBom !--------------------------------------------*/
+.gscore{
+    width: 400px; height: 300px; display:flex; flex-direction: column;
+    align-items:center;
+    margin: 5px; box-shadow:0px 0px 2px 0px black; 
+}
+.gscore span{ margin: 10px;
+    width: 350px; height: 50px; display: flex; justify-content: center;
+}
+.gboard{
+    cursor: grab; 
+    display:flex; 
+    flex-wrap: wrap;
+    height: 300px; 
+    width: 310px;
+}
+.gboard img{
+    margin:1px; box-shadow: 0px 0px 1px 0px black;
+    height: 25%; width: 24%; 
+    display:block;
+}
+.footer{
+    display:block;
+}
+
+#startWhacking, #stopWhacking{
+    padding: 10px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: ghostwhite;
+    box-shadow: 0px 0px 1px 0px black;
+}
+#startWhacking, #stopWhacking:hover{
+    cursor: pointer;
+    opacity: 0.89;;    
+}
+
+/*-------------------------------------WhackaBom !--------------------------------------------*/
+
+
+/*----------------------------------------------- JIGSAW ---------------------------------------------------*/
+
+*{
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+
+.jboard{
+    width:  31vw;
+    height: 30vw;
+    margin: auto;  
+    border-radius: 5px;
+    border:1px solid lightgrey;
+}
+.jcards{
+    display: flex;
+    flex-wrap: wrap;
+}
+.jpuzzle{
+    border-collapse: collapse;
+}
+.jpuzzle td{
+    border: 1px solid lightgrey;
+    width: 10vw;
+    height: 10vw;
+    
+}
+.jcard{
+    width:  10vw;
+    height: 10vw;
+    /* border: 1px solid rgb(75, 73, 73); */
+    display: block;
+    border-radius: 2px;
+    
+}
+.j-container{
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    padding: 5%;
+}
+.sj-container{
+    display: flex;
+    justify-content: center;
+}
+
+
+.jhide{
+    display:none;
+}
+.jmove{
+    position: absolute;
+}
+
+.jstatus{
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+.status h1{
+    align-self:center;
+}
+.jbutton{
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    align-self: center;
+}
+.j-container h4{
+    align-self: center;
+}
+.j-container ol{
+    align-self: center;
+    width: 80%;
+}
+@media only screen and (max-width: 500px){
+    .jboard{
+        width: 270px;
+        height: 270px;
+        margin:10px auto;
+    }
+    .jpuzzle td{
+        width: 90px;
+        height:90px;
+        margin: 3%;;
+    }
+    .jcards{
+        width: 270px;
+        height:270px;
+        margin:10px auto;
+    }
+    .jcard{
+        width: 90px;
+        height: 90px;
+    }
+    .j-container{
+        padding: 10px 0px;
+        flex-direction: column;
+    }
+    .sj-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .jmove{
+        border: 1px solid rgb(100, 100, 153);
+        position:relative;
+        opacity: 0.89;
+    }
+
+}
+/*----------------------------------------------- JIGSAW ---------------------------------------------------*/
+.downloads{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+@media only screen and (max-width: 1025px){
+
+    .sub-container{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}
