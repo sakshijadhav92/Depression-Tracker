@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>HappyMe</title>
+        <meta charset="utf-8">
+        {% if request.path =="/eventRegistration" %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        rel="stylesheet" >
+        <style>
+
+            .titlediv {
+                background-color: #ABB2B9;
+            }
+
+            .container {
+                background-color: whitesmoke;
+                position: relative;
+
+            }
+            .text{
+                width: 40vw;
+                text-align: justify;
+            }
+        
+
+            .middle {
+                margin: auto;
+                padding: 50px;
+            }
+            .row-custom{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .inp {
+                width: 100%;
+            }
+            .event-image{
+                width: 20vw;
+                height:20vw;
+                border: 1px solid lightgray;
+                border-radius: 20vw;
+                /* position: absolute; */
+            }
+            .events{
+                display: flex;
+                justify-content: space-between;
+            }
+
+                
+        </style>
+         
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link href="{{url_for('static', filename='css/layout.css')}}" rel="stylesheet" type="text/css" media="all">
+        <link href="{{url_for('static', filename='css/temp.css')}}" rel="stylesheet" type="text/css" media="all">
+        <link href="{{url_for('static', filename='css/tempx.css')}}" rel="stylesheet" type="text/css" media="all">
+        
+    </head>
+
+    <body id="top">

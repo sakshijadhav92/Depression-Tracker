@@ -1,0 +1,92 @@
+{% include "__header.html" %}
+{% include "__navigation.html" %}
+<div class="containerx">
+    <div class="sub-containerx">
+        <div class="card-1">
+            <div class="fixed-div">
+                
+                <img  src="{{url_for('static', filename='images/happy.svg' )}}" alt="">
+                <h1 class="heading-1" style="font-size:medium;">Become a part of happy me !</h1>
+            </div>
+        </div>
+        <form action="" class="form-section" method="POST" autocomplete="off" onsubmit="return validation('1');">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+           
+            <h2 class="heading-1" style="margin: 5%;">Sign up</h2>
+            <div class="name_class">
+                <label for="nm">Name</label> 
+                <table>
+                    <tr>
+                        <td>
+                            <div class="user-icon"></div>
+                        </td>
+                        <td>
+                            <input type="text" name="fname" id="fn" placeholder="First name" class="inp-section" required>                            
+                            <input type="text" name="lname" id="ln" placeholder="Last name"  class="inp-section" required>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <span class="group-1">
+                <label for="eml">Email Id</label>
+                <input type="email" name="email" id="eml" placeholder="example@domain.com" class="icon eml inp-section" required>
+            </span>
+            <span class="group-1">
+                <label for="pa">Password</label>
+                <input type="password" name="password" id="pa" class="icon pass inp-section" placeholder="Password" required>
+            </span>
+            <span class="group-1">
+                <label for="rpa">Re-type password</label>
+                <input type="password" name="rpassword" id="rpa" class="icon pass inp-section" placeholder="Password" required>
+            </span>
+            <fieldset class="group-2">
+                <legend>Gender</legend>
+                
+                <span>
+                    <input type="radio" name="gender" id="m" value="male" >
+                    <label for="m">Male</label>
+                </span>
+                
+                <span>
+                    <input type="radio" name="gender" id="f" value="female">
+                    <label for="f">Female</label>
+                </span>
+                
+                <span>
+                    <input type="radio" name="gender" id="o" value="other">
+                    <label for="o">Other</label>
+                </span>
+
+            </fieldset>
+            <span class="group-1">
+                <label for="dob">D.O.B</label>
+                <input type="date" name="dob" id="dob" class="icon dob inp-section" placeholder="yyyy-mm-dd" required>
+            </span>
+            <span class="group-1">
+                <label for="c">Contact</label>
+                <input type="text" maxlength="10" name="contact" id="c" class="icon contact inp-section" placeholder="x x x x x x x x" required>
+            </span>
+            <span class="group-1">
+                <label for="a">Aadhar No.</label>
+                <input type="text" maxlength="12" name="aadhar" id="a" class="icon num inp-section" placeholder="Aadhar number (12 digit)" required>
+            </span>
+            <span class="group-1">
+                <textarea name="address" class=" icon addr textarea" id="txt" cols="30" rows="5" placeholder="Address" required></textarea>
+            </span>
+            <input type="submit" value="Sign up" class="submit btn btn--primary half-width">
+            <br>
+            <hr>
+            <a class="link" href="/authentication">Already have an account ? </a>
+        </form>
+    </div>
+    <script src="{{url_for('static', filename='/scripts/temp.js')}}"></script>
+</div>
+{% include '__copyRight.html' %}

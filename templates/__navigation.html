@@ -1,0 +1,56 @@
+<div class="wrapper row1">
+    <header id="header" class="hoc clear">
+        <div id="logo" class="fl_left">
+            <a href="index.html">
+                <h1 class="logoname"><a href="/">Happy<span>Me</span></a></h1>
+            </a>
+        </div> <!-- end header__logo -->
+
+        <nav id="mainav" class="fl_right">
+            <!-- ################################################################################################ -->
+            <ul class="clear">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a class="drop" href="#">Activites</a>
+                    <ul>
+                        <li><a href="/activity#tree_plantation">Tree Plantation</a></li>
+                        <li><a href="/activity#meditation">Meditation Compaign</a></li>
+                        <li><a href="/activity#other_activities">Some Activities</a></li>
+                    </ul>
+                </li>
+               {% if session.get("user_id") %}
+               <li>
+                   {% if session.get("admin") %}
+                   <a href="/adminDashboard">Dashboard</a>
+                   {% else %}
+                   <a href="/dashboard">Dashboard</a>
+                   {% endif %}
+               </li>
+               {% else %}
+               <li><a class="drop" href="#">Login</a>
+                    <ul>
+                        <li><a href="/adminAuth">Admin Login</a></li>
+                        <!-- <li><a href="login.html">Doctor Login</a></li>-->
+                        <li><a href="/authentication">Patient Login</a></li>
+                    </ul>
+                </li>
+               {% endif %}
+                <li><a href="/info">What is Depression ?</a>
+
+                </li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+            <!-- ####################################################################### <ul>
+      <li><a href="#">Level 2</a></li>
+      <li><a class="drop" href="#">Level 2 + Drop</a>
+        <ul>
+          <li><a href="#">Level 3</a></li>
+          <li><a href="#">Level 3</a></li>
+          <li><a href="#">Level 3</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Level 2</a></li>
+    </ul>######################### -->
+        </nav>
+    </header>
+</div>

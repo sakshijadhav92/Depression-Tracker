@@ -1,0 +1,143 @@
+{% include "__header.html" %}
+<div class="wrapper overlay row0">
+
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- Top Background Image Wrapper -->
+<div class="bgded" style="background-image:url({{url_for('static', filename='images/demo/backgrounds/milky.jpg')}});">
+    <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        {% include "__adminNavigation.html" %}
+    </div>
+    <div id="pageintro" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <div class="containerx">
+            {% if request.args.get("type")=="patient" %}
+            <span class="group-1">
+                <form action="/reports" method="GET" onsubmit="return form_validate()">
+                    <!-- <label for="st">From stress level </label> -->
+                    <input type="hidden" name="type" value="patient">
+                    <input type="hidden" name="query" value="table">
+                    <span style="display: flex; justify-content: center;">
+                        <span style="display: flex;">
+                            <label style="margin:auto 10px;border-left: 1px solid black; padding-left: 5px;"for="male">Male</label>
+                            <input style="margin:auto 10px;  ;"type="radio" value="male" id="male" name="gender" onclick="setGender('male')" required>
+                        </span>
+                        <span style="display: flex;">
+                            <label style="margin:auto 10px;border-left: 1px solid black; padding-left: 5px;"for="female">Female</label>
+                            <input style="margin:auto 10px;  ;"type="radio" value="female"  id="female"name="gender" onclick="setGender('male')">
+                        </span>
+                        <span style="display: flex;">
+                            <label style="margin:auto 10px;border-left: 1px solid black; padding-left: 5px;"for="other">Other</label>
+                            <input style="margin:auto 10px;  ;"type="radio" value="other" id="other"name="gender" onclick="setGender('male')">
+                        </span>
+                        <span style="display: flex;">
+                            <label style="margin:auto 10px;border-left: 1px solid black; padding-left: 5px;"for="all">All</label>
+                            <input style="margin:auto 10px;  ;"type="radio" value="all" id="all"name="gender" onclick="setGender('male')">
+                        </span>
+                        <select class="inp-section" style="padding: 10px; width:190px" name="" id="stress" onchange="setVal()" onclick="setGender('male')">
+                            <option value="0">select stress level</option>
+                            <option value="1-2">Low</option>       
+                            <option value="3-4">Medium</option>
+                            <option value="5-6">High</option>
+                            <option value="1-5">All</option>
+                        </select>
+                    </span>
+                    <input type="hidden" name="st" id="st" placeholder="from" class="inp-section" required>
+                    <!-- <label for="st">to stress level </label> -->
+                    <input type="hidden" name="sp" id="sp" placeholder="to" class="inp-section"   required>
+                    
+                    <input type="submit" value="get details" class="btn btn--primary half-width">
+                    
+                </form>
+                <!-- <span style="display: flex; flex-wrap: wrap; justify-content: space-around;"> -->
+                <form action="/reports" method="GET"  style="margin: 10px;">
+                    {% if data.get("request") %}
+                    <input type="hidden" name="type" value="patient">
+                    <input type="hidden" name="query" value="csv">
+                    <input type="hidden" name="st" id="hst" value="{{data.get('request')['frm']}}" required>
+                    <input type="hidden" name="sp" id="hsp" value="{{data.get('request')['to']}}" required>
+                    <input type="hidden" name="gender" id="gender" value="{{data.request.gender}}" required>
+                    {% else %}
+                    <input type="hidden" name="type" value="patient">
+                    <input type="hidden" name="query" value="csv">
+                    <input type="hidden" name="st" id="hst" value="1"required>
+                    <input type="hidden" name="sp" id="hsp" value="6" required>
+                    <input type="hidden" name="gender" id="gender" value="all" required>
+                    {% endif %}
+                    <input type="submit"  class="btn btn--primary full-width" value="download">
+                </form>
+                <!-- </span> -->
+            </span>
+            <table id="patients">
+                <th colspan="5">Patient details</th>
+                <tr>
+                    <td>Patient Name</td>
+                    <td>Contact </td>
+                    <td>Address</td>
+                    <td>Stress level</td>
+                    <td>Gender</td>
+                </tr>
+                {% if data.get('resp') %}
+                {% for patient in data.get('resp') %}
+                <tr>
+                    
+                    <td>{{patient.name}}</td>
+                    <td>{{patient.contact}} </td>
+                    <td>{{patient.address}}</td>
+                    <td>{{patient.stress}}</td>
+                    <td>{{patient.gender}}</td>
+                   
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+            <script>
+                
+                function setVal(){
+                    let stressLevel=document.getElementById("stress").value;
+                    console.log(stressLevel);
+                    let stressArray=stressLevel.split('-');
+                    console.log(stressArray);
+                    document.getElementById("st").value=stressArray[0];
+                    document.getElementById("sp").value=stressArray[1];
+                    document.getElementById("hst").value=stressArray[0];
+                    document.getElementById("hsp").value=stressArray[1];
+
+                }
+                function form_validate(){
+                    let flag=true;
+                    let stressLevel=document.getElementById("stress").value;
+                    if(stressLevel==0){
+                        alert("No category chosen");
+                        flag=false;
+                    }
+                    return flag;
+                }
+                function setGender(val){
+                    document.getElementById("gender").value=val;
+                }
+               
+            </script>
+            {% else %}
+            <a class="card-x" href="/reports?type=patient">Patient reports</a>
+            {% endif %}
+        </div>
+        <article class="hoc container clear">
+           
+            <center>
+               
+            </center>
+        </article>
+        <!-- ################################################################################################ -->
+    </div>
+</div>
+<!-- End Top Background Image Wrapper -->
+<div class="wrapper row3">
+
+</div>
+
+
+{% include"__copyRight.html" %}

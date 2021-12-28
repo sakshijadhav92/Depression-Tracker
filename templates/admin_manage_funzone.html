@@ -1,0 +1,146 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div class="containerx">
+            <a class="submit-btn" style="margin: 5%; background-color:rgb(127, 194, 224)" href="/createOrUpdateResource">create resource</a>
+            <div class="filter-section">
+                <input type="text" name="" placeholder="Search jokes, video links, or quotes here" id="text" class="inp-section" style="padding: 10px; width: 250px;">
+                <label for="10">
+                    Jokes <input type="radio" name="rd" id="10" value="jokes" onclick="displayOnly('1')">
+                </label>
+
+                <label for="20">
+                    Quotes
+                    <input type="radio" name="rd" id="20" value="quotes" onclick="displayOnly('2')">
+                </label>
+
+                <label for="30">
+                    Video
+                    <input type="radio" name="rd" id="30" value="videos" onclick="displayOnly('3')">
+                </label>
+                
+                <label for="40">
+                    all
+                    <input type="radio" name="rd" id="40" value="all" onclick="displayOnly('4')">
+                </label>
+                
+            </div>
+            <div class="table-holder">
+                <table id="tab">
+                    <tr>
+                        <td>Sr.No</td>
+                        <td>category</td>
+                        <td>resource</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    {% for resource in data  %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{resource.type}}</td>
+                            <td>{{resource.resource}}</td>
+                            <td>
+                                <a class="edit-btn" href="/createOrUpdateResource?id={{resource._id}}"></a>
+                            </td>
+                            <td>
+                                <button class="delete-btn"onclick="del('{{resource._id}}')"></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <script>
+                    function del(id){
+                    
+                    
+                    const xhr=new XMLHttpRequest();
+                    
+                        
+                        xhr.open( "DELETE","{{request.root_url}}manageFunzone");
+                        xhr.setRequestHeader("Content-type", "application/json");
+                        data={
+                            'id':id
+                        }
+                        if(confirm("Are you sure to delete this resource.")){
+                            xhr.send(JSON.stringify(data));
+                            window.location.reload();
+                        }
+                    
+                        xhr.onload = ()=>{
+                            try{
+                                let jsnResponse=JSON.parse(xhr.responseText);
+                                alert(jsnResponse.message);
+                            }catch(e){
+                                console.log(e);
+                            }
+                        }
+                    
+                    }
+                    var table=document.getElementById("tab");
+                    function displayOnly(tok){
+                        if(tok==1){
+                            for (let i=0;i<table.rows.length;i++){
+                                
+                                if (table.rows[i].cells[1].textContent=="joke"){
+                                    table.rows[i].style.display="";
+                                }else{
+                                    table.rows[i].style.display="none";
+                                }
+                                
+                            }
+                        }else if(tok==2){
+                            for (let i=0;i<table.rows.length;i++){
+                                
+                                if (table.rows[i].cells[1].textContent=="quote"){
+                                    table.rows[i].style.display="";
+                                }else{
+                                    table.rows[i].style.display="none";
+                                }
+                                
+                            }
+                        }else if(tok==3){
+                            for (let i=0;i<table.rows.length;i++){
+                                
+                                if (table.rows[i].cells[1].textContent=="video"){
+                                    table.rows[i].style.display="";
+                                }else{
+                                    table.rows[i].style.display="none";
+                                }
+                            }
+                        }else if(tok==4){
+                            for (let i=0;i<table.rows.length;i++){           
+                                table.rows[i].style.display="";       
+                            }
+                        }
+                    }
+                    var text=document.getElementById("text");
+                    document.getElementById("text").addEventListener("keydown", (e)=>{
+                        for(let i=0;i<table.rows.length;i++){
+                            if(table.rows[i].cells[2].textContent.toUpperCase().indexOf(text.value.toUpperCase())>-1){
+                                table.rows[i].style.display=""
+                            }else{
+                                table.rows[i].style.display="none"
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

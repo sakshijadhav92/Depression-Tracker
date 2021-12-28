@@ -1,0 +1,81 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" style="background-image: url({{url_for('static', filename='/images/demo/backgrounds/milky.jpg')}})">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div id="pageintro" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <article>
+                <p>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                        <li class="{{category}}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}    
+                </p>
+
+                <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+            </article>
+            <!-- ################################################################################################ -->
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <div id="total" style="font-size:2rem; margin :50px auto; padding:5%;background: white; color: black; font-weight: bold; width: 100%; height: 100px; display: flex; text-align: center;">
+                
+            </div>
+            <div id="piechart"></div>
+    
+           
+            
+            <script type="text/javascript">
+            // Load google charts
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            
+            // Draw the chart and set the chart values
+            function drawChart() {
+    
+                let xhr=new XMLHttpRequest();
+                xhr.open("POST", "{{request.root_url}}stats");
+                var data=null;
+                xhr.onload=function(){
+                    try{
+                        let jsn=JSON.parse(xhr.responseText);
+                        let d=jsn['arrayInfo'];
+                        let totalNumber=jsn['total'];
+                         data= google.visualization.arrayToDataTable(d);
+                         var options = {'title':'Users Registered and stress level ', 'height':500};
+            
+                        // Display the chart inside the <div> element with id="piechart"
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                        chart.draw(data, options);
+                        document.getElementById("total").textContent="Total users registered : "+jsn['total'];
+                    }catch(e){
+                        console.log(e);
+                    }
+                }
+                xhr.send();
+            
+              // Optional; add a title and set the width and height of the chart
+              
+            }
+            </script>
+        </div>
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+       
+        
+    </div>
+
+
+    {% include"__copyRight.html" %}

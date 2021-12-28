@@ -1,0 +1,35 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div class="containerx">
+            <div class="activity-card-holder">
+                {% for activity in activities %}
+                <a href="/createOrUpdateActivity?id={{activity._id}}"class="activity-card">
+                    <label for="">{{activity.a_name}}</label>
+                </a>
+                {% endfor %}
+                
+                <a href="createOrUpdateActivity" style="border-radius: 150px; color: rgb(61, 163, 51);" class="activity-card">
+                    <img class="activity-logo" style="border: none;" src="{{url_for('static', filename='/images/demo/gallery/add.svg')}}" alt="">
+                    <label for="">add activity</label>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

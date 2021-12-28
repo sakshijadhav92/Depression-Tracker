@@ -1,0 +1,33 @@
+<header id="header" class="hoc clear">
+    <div id="logo" class="fl_left">
+        <a href="index.html">
+            <h1 class="logoname"><a href="{{base_url}}/">Happy<span>Me</span></a></h1>
+        </a>
+    </div> <!-- end header__logo -->
+
+    <nav id="mainav" class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="clear">
+            <li class="active"><a href="/" {% if request.path == "/" %} style="color:#3A93F3;"  {% endif %}>Home</a></li>
+
+
+            <li><a href="/userprofile" {% if request.path == "/userprofile" %} style="color:#3A93F3;"  {% endif %}>Profile</a></li>
+            <li><a href="/viewScheduledActivity" {% if request.path == "/viewScheduledActivity" %} style="color:#3A93F3;"  {% endif %}>Activites Scheduled</a></li>
+                <!--<li><a class="drop" href="#"></a>
+<ul>
+  <li><a href="activity.html">Suggested Activities</a></li>
+  <li><a href="activity.html">Enrolled Activities</a></li>
+</ul>
+</li>-->
+
+            <li><a href="{{base_url}}/funzone" {% if request.path == "/funzone" %} style="color:#3A93F3;" {% endif %} >Fun Zone</a>
+                
+            </li>
+            <li><a href="/doc-suggestion" {% if request.path == "/doc-suggestion" %} style="color:#3A93F3;" {% endif %}>Doctors Suggestion </a>
+                <!--(    if there is any expert help needs here will be the toll free no is there will help to direct contact with dr if there is an emergency.)-->
+            </li>
+            <li><a href="{{base_url}}/logout">Log out</a></li>
+        </ul>
+
+    </nav>
+</header>

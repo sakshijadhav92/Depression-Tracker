@@ -1,0 +1,99 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div id="pageintro" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <article>
+                <p>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                        <li class="{{category}}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}    
+                </p>
+
+                <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+            </article>
+            <div class="containerx">
+    
+                {% if request.args.get("id") %}
+                <div class="form-section" style="border-radius: 5px;">
+                    <h1 class="heading-1">Edit doctor suggestion</h1>
+                    <input type="hidden" name="_id" id="_id" value="{{request.args.get('id')}}">
+                    <span class="group-1">
+                        <label for="stress">Stress level</label>
+                        <input type="number" name="stress" id="stress" max="5" min="1" class="inp-section" style="padding: 10px;" title="min 1 and max 5" value="{{docsuggestion.stress}}" required>
+                    </span>
+                    <span class="group-1">
+                        <label for="doc_days">Suggestion</label>
+                        <textarea name="doc_says" id="doc_says" class="textarea" style="padding:10px;" value="" required cols="30" rows="10" placeholder="Add suggestion">{{docsuggestion.doc_says}}</textarea>
+                    </span>
+                    <button class="submit btn btn--primary half-width" style="color: rgb(52, 173, 82);" onclick="update_doc_suggestion()">update </button>
+                </div>
+                {% else %}
+                <form class="form-section" style="border-radius: 5px;"action="/manageDocSuggestion" method="POST">
+                    <h1 class="heading-1">Add new doctor suggestion</h1>
+                    <span class="group-1">
+                        <label for="stress">Stress level</label>
+                        <input type="number" name="stress" max="5" min="1" class="inp-section" style="padding: 10px;" title="min 1 and max 5" required>
+                    </span>
+                    <span class="group-1">
+                        <label for="doc_days">Suggestion</label>
+                        <textarea name="doc_says" id="doc_says" class="textarea" style="padding:10px;" required cols="30" rows="10" placeholder="Add suggestion"></textarea>
+                    </span>
+                    <input class="submit btn btn--primary half-width" type="submit" value="add suggestion">
+                </form>
+                {% endif %}
+            </div>
+            <!-- ################################################################################################ -->
+        </div>
+        <script>
+            function update_doc_suggestion(){
+                let id=document.getElementById("_id").value
+                let doc_says=document.getElementById("doc_says").value
+                let stress=document.getElementById("stress").value
+                const xhr=new XMLHttpRequest();
+                xhr.open("PUT", "{{request.root_url}}manageDocSuggestion");
+                xhr.onload=function(){
+                    // console.log(xhr.responseText);
+                    let jsonResponse=JSON.parse(xhr.responseText)
+                    if(jsonResponse.code==200){
+                        alert(jsonResponse.message)
+                        window.location.href="createOrUpdateDocSuggestion?id={{request.args.get('id')}}"
+                    }
+                }
+                xhr.setRequestHeader("Content-type", "application/json");
+                req={
+                    "_id":id,
+                    "doc_says":doc_says,
+                    "stress":stress
+                }
+                if(id!=""&& stress!="" && doc_says!=""){
+                    xhr.send(JSON.stringify(req));
+                }else{
+                    alert("Empty Fields");
+                }
+            }
+        </script>
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

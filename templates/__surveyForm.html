@@ -1,0 +1,118 @@
+
+    <form action="/survey" method="POST"  class="survey-form" id="surveyForm"> 
+        <!--happy-->
+        <div class="section-1 front">
+            <label class="question" for="happy">How happy do you feel today ? (1-100) </label>
+            <span class="range">
+                <input type="range" name="happy" id="happy12" oninput="this.nextElementSibling.value = this.value" value="0">
+                <output class="value" >0</output>
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="next()">next</label>
+            </span>
+        </div>
+
+        <!--peopleMet-->
+        <div class="section-1">
+            <label class="question" for="peopleMet">How many people you have met today ?</label>
+            <span class="range">
+                <input type="range" name="peopleMet" id="mood12"oninput="this.nextElementSibling.value = this.value"  value="0">
+                <output class="value">0</output>
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="prev()">prev</label>
+                <label class="btn-nav" for="" onclick="next()">next</label>
+            </span>
+        </div>
+
+        <!--productive-->
+        <div class="section-1">
+            <label class="question" for="productive">How productive you feel today ?</label>
+            <span class="range">
+                <input type="range" name="productive" id="prod"oninput="this.nextElementSibling.value = this.value"  value="0">
+                <output class="value">0</output>
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="prev()">prev</label>
+                <label class="btn-nav" for="" onclick="next()">next</label>
+            </span>
+        </div>
+
+        <!--positivity-->
+        <div class="section-1">
+            <label class="question" >Do you believe anything good will happen today ?</label>
+            <span class="mcqs">
+                <p>
+                    <input type="radio" name="positivity" id="yes" value="1">
+                    <label for="yes">Yes</label>
+                </p>
+                <p>
+                    <input type="radio" name="positivity" id="no" value="0">
+                    <label for="no">No</label>
+                </p>
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="prev()">prev</label>
+                <label class="btn-nav" for="" onclick="next()">next</label>
+            </span>
+        </div>
+
+        <!--sleep-->
+        <div class="section-1">
+            <label class="question" for="sleep12">How fast do you fall sleep at night  (for an average person it is 7-10 minutes)? </label>
+            <span class="mcqs">
+                <p>
+                    <input type="radio" name="sleep" id="slp1" value="1">
+                    <label for="slp1">Easily</label>
+                </p>
+                <p>
+                    <input type="radio" name="sleep" id="slp2" value="2">
+                    <label for="slp2">Takes some time usually more than average time</label>
+                    
+                </p>
+                <p>
+                    <input type="radio" name="sleep" id="slp3" value="3">
+                    <label for="slp3">Needs a pill to sleep</label>
+                    
+                </p>
+                
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="prev()">prev</label>
+                <label class="btn-nav" for="" onclick="next()">next</label>
+            </span>
+        </div>
+
+        <!--social-->
+        <div  class="section-1">
+            <label class="question "for="happy">Did you socialize today (No. of people approximately you socialised with)?</label>
+            <span class="range">
+                <input type="range" name="social" id="soc12" oninput="this.nextElementSibling.value = this.value"  value="0">
+                <output class="value">0</output>
+            </span>
+            <span class="section-2">
+                <label class="btn-nav" for="" onclick="prev()">prev</label>
+                <input type="submit" class="btn-sub" value="submit"/>
+            </span>
+        </div>
+    </form>
+    <script>
+        var section=document.getElementsByClassName("section-1");
+        var scount=0;
+        function prev(){
+            section[scount].classList.toggle("front");
+            if(scount!=0){
+                scount--;
+            }
+            section[scount].classList.toggle("front");
+        }
+        function next(){
+            section[scount].classList.toggle("front");
+            if(scount<section.length){
+                scount++;
+            }
+            section[scount].classList.toggle("front");
+        }
+
+
+    </script>

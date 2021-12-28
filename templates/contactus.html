@@ -1,0 +1,97 @@
+{% include "__header.html" %}
+	<div class="wrapper overlay row0">
+		<div id="topbar" class="hoc clear">
+			<div class="fl_left">
+				<!-- ################################################################################################ -->
+				<ul class="nospace">
+					<li><i class="fas fa-envelope"></i>happymeinfinity0@gmail.com</li>
+				</ul>
+				<!-- ################################################################################################ -->
+			</div>
+			<div class="fl_right">
+				<!-- ################################################################################################ -->
+				<ul class="nospace">
+					<li><a href="/"><i class="fas fa-home"></i></a></li>
+					<li><a href="help.html" title="Help Centre"><i class="far fa-life-ring"></i></a></li>
+					<li><a href="/authentication" title="Login"><i class="fas fa-sign-in-alt"></i></a></li>
+					<li><a href="/registration" title="Sign Up"><i class="fas fa-edit"></i></a></li>
+				</ul>
+				<!-- ################################################################################################ -->
+			</div>
+		</div>
+	</div>
+	<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- ################################################################################################ -->
+	<!-- Top Background Image Wrapper -->
+	<div class="bgded" style="background-image:url({{url_for('static', filename='images/demo/backgrounds/contact.jpg')}});">
+
+		<!-- ################################################################################################ -->
+		{% include"__navigation.html" %}
+		<div id="pageintro" class="hoc clear">
+		</div>
+	</div>
+	<!-- End Top Background Image Wrapper -->
+
+	<div class="wrapper row3">
+		<main class="hoc container clear">
+			<!-- main body -->
+			<section id="introblocks" class="row3 inspace-30 clear">
+				<div class="one_half first">
+					<p class="heading font-x3">
+						Feel Free To Contact Us.</p>
+				</div>
+			</section>
+			<!-- / main body -->
+			<div class="clear"></div>
+		</main>
+	</div>
+
+	<div class="wrapper row2">
+		<article class="hoc container clear">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+           
+			<h3 style="margin: auto; text-align: center;">Say Hello.</h3><br>
+			<form name="cForm" id="cForm" method="post" action="" class="form-section" style="border: none; margin:auto;">
+				<fieldset>
+					<div class="group-1">
+						<label for="cName">Full Name</label>
+						<input name="name" type="text" id="cName" placeholder="Your Name" autocomplete="off" value=""
+							required class="full-width inp-section" style="padding:10px;">
+					</div><br><br>
+					<div class="group-1">
+						<label for="cEmail">Email Id.</label>
+						<input name="email" autocomplete="off" type="email"
+							pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+							id="cEmail" class="full-width inp-section" style="padding:10px;" placeholder="Your Email"
+							value="" required>
+					</div><br><br>
+
+					<div class="group-1">
+						<label for="cMessage">Your Message</label>
+						<textarea name="message" class="textarea" style="padding:10px;" id="cMessage" rows="10"
+							placeholder="Your Message" required></textarea>
+					</div><br>
+					<button type="submit" name="save" class="submit btn btn--primary full-width">Submit</button>
+					<br><br>
+				</fieldset>
+			</form>
+		</article>
+	</div>
+	<div class="wrapper row3">
+		<section class="hoc container clear">
+		</section>
+	</div>
+	<div class="bgded overlay row4" style="background-image:url( {{url_for('static', filename='images/demo/backgrounds/01.png')}});">
+		{% include"__footer.html" %}
+	</div>
+	
+	{% include"__copyRight.html"%}

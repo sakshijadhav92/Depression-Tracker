@@ -1,0 +1,73 @@
+
+{% include "__header.html" %}
+{% if session['stress'] == -1 %}
+{% include '__surveyForm.html' %}
+<script>
+    setTimeout(function () {
+        document.getElementById("surveyForm").classList.toggle("popup");
+        document.getElementById('top').classList.toggle('make-blur');
+    }, 1000);
+
+</script>
+{% endif %}
+<div class="wrapper overlay row0">
+
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- Top Background Image Wrapper -->
+<div class="bgded" style="background-image:url( {{url_for('static', filename='images/demo/backgrounds/happy.jpg')}});">
+    <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        {% include"__userNavigation.html" %}
+    </div>
+    <div id="pageintro" class="hoc clear">
+        <!-- ################################################################################################ -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{category}}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+            <div class="containerx" style="padding-left:  20px; padding-right: 20px;">
+                <h1 style="font-size: 25px; align-self: flex-start;">Doctor Suggests</h1>
+                {% if session.get("stress") | int >=4 %}
+                <p>
+                    We would be glad to hear from you in person. Please request for an appointment
+                </p>
+                <a style="align-self: flex-end; color:slategray; font-weight: bold;" class="link" href="/request-appointment">Request appointment</a>
+                {% else %}
+                <p>
+                    {{docsuggestion.doc_says}}
+                </p>
+                <a style="align-self: flex-end; color:slategray; font-weight: bold;" class="link" href="/request-appointment" onclick="return confirm('Proceed for requesting to book appointment ')" >Not helping? Request for appointment</a>
+                {% endif %}
+            </div>
+            
+            <script>
+                
+            </script>
+
+
+            <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+       
+        <!-- ################################################################################################ -->
+    </div>
+</div>
+<!-- End Top Background Image Wrapper -->
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <!-- main body -->
+
+
+
+        <!-- / main body -->
+        <div class="clear"></div>
+    </main>
+</div>
+
+{% include "__copyRight.html" %}

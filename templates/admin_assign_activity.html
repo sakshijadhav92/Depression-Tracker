@@ -1,0 +1,179 @@
+{% include "__header.html" %}
+<div class="wrapper overlay row0">
+
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- Top Background Image Wrapper -->
+<div class="bgded" style="background-image:url({{url_for('static', filename='images/demo/backgrounds/milky.jpg')}});">
+    <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        {% include "__adminNavigation.html" %}
+    </div>
+    <div id="pageintro" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <article class="hoc container clear">
+            <center>
+                <form name="cForm" id="cForm" method="post" action="" class="form-section" style="border-radius: 5px;" onsubmit="return validate_assign_activity_form()">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                        <li class="{{category}}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    <fieldset>
+                        <div class="group-1">
+                            <label for="cName">Patient ID</label>
+                            <!-- <input name="cName" type="text" id="cName" placeholder="Your Name" autocomplete="off"
+                                value="" required class="full-width inp-section" style="padding:10px;"> -->
+                                <select class="inp-section" style="padding: 10px; color: black;"name="user_id" id="uid" onchange="getEmail()">
+                                    <option   value="None">--select--</option>
+                                    {% for userdata in userData %}
+                                    {% if userdata._id != "1admin1" %}
+                                    <option value="{{userdata._id}}">{{userdata._id}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                        </div><br><br>
+                        <table style="background-color: white; color:black;">
+                            <tr>
+                                <td>Name : </td>
+                                <td id="uname">User name</td>
+                            </tr>
+                            <tr>
+                                <td>Age</td>
+                                <td><input class="inp-section" style="padding: 10px;" type="datetime" name="user_age" readonly id="age" value="xx"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table id="b_activities">
+                                        <th colspan="2">
+                                            activity list
+                                         </th>
+                                         <tr>
+                                             <td >Activity booked by the user or assign to the user will be displayed here</td>
+                                         </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="group-1">
+                            <label for="activity">Assign Activity</label>
+                            <select class="inp-section" style="padding: 10px; color: black;" name="activity_id" id="activity" disabled>
+                                <option value="None">---select---</option>
+                            </select>
+                        </div><br><br>
+
+                        <div class="group-1">
+                            <label for="message">Your Message</label>
+                            <textarea style="color:black; padding:10px;"name="admin_msg"  rows="5" cols="10" class="textarea" style="padding:10px;" id="admin_msg"
+                                placeholder="Your Message" required></textarea>
+                        </div><br>
+                        <button type="submit" name="save" class="submit btn btn--primary full-width">Submit</button>
+                        <br><br>
+                    </fieldset>
+                </form>
+            </center>
+        </article>
+        <!-- ################################################################################################ -->
+    </div>
+</div>
+<!-- End Top Background Image Wrapper -->
+<div class="wrapper row3">
+
+</div>
+<script>
+    
+    function getEmail(){
+        const xhr=new XMLHttpRequest();
+        let id=document.getElementById("uid").value;
+        xhr.open("GET","{{request.root_url}}assignActivity?uid="+id)
+        xhr.onload=function(){
+            try{
+                let jsonResponse=JSON.parse(xhr.responseText);
+                let activities= document.getElementById("activity");
+                if (id=="None"){
+                    activities.disabled=true;
+                }else{
+                    activities.disabled=false;
+                    activities.innerHTML=""
+                    let option=document.createElement("option");
+                    option.setAttribute("value","None");
+                    if(jsonResponse['available_activities'].length==0){
+                        option.textContent="All the available activities are booked to this user"    
+                    }else{
+                        option.textContent="--select--"
+                    }
+                    
+                    activities.append(option);
+                    // console.log(jsonResponse)
+                    for (let i=0;i<jsonResponse['available_activities'].length;i++){
+                        let option=document.createElement("option");
+                        option.setAttribute("value",jsonResponse['available_activities'][i]._id);
+                        option.textContent=jsonResponse['available_activities'][i].a_name;
+                        activities.append(option);
+                    }
+                    document.getElementById("age").value=jsonResponse['user_info']['age'];
+                    let booked_activities=document.getElementById("b_activities");
+                    for (let j=booked_activities.rows.length-1;j>=1;j--){
+                        booked_activities.deleteRow(j);
+                    }
+                    for (let j=0;j<jsonResponse['user_info']['booked_activities']['bookings'].length;j++){
+                        let tr=document.createElement("tr");
+                        let td=document.createElement("td");
+                        td.textContent=jsonResponse['user_info']['booked_activities']['bookings'][j].activity.a_name;
+                        tr.append(td);
+                        booked_activities.append(tr);
+                    }
+                    document.getElementById("uname").textContent=jsonResponse['user_info']['name']
+
+                }
+                
+
+            }catch(e){
+                console.log(e);
+            }
+        }
+        xhr.send();
+    }
+
+    function validate_assign_activity_form(){
+        let flag=true;
+        let message=""
+        try{
+            let age=document.getElementById("age").value;
+            let activity=document.getElementById("activity").value;
+            let uid=document.getElementById("uid").value;
+            let admin_msg=document.getElementById("admin_msg").value;
+            if (age=="xx" )
+            {
+                flag=false;
+                message+="\n Age has no valid value"
+            }
+            if( activity == "None" ){
+                flag=false;
+                message+="\n No activity has been assigned"
+            }
+            if( uid =="None" ){
+                flag=false;
+                message+="\n User id has not been seleced";
+            }
+            if(admin_msg==""){
+                flag=false;
+                message+="\n Admin message should not be left empty"
+            }
+            if(!flag){
+                alert(message)
+            }
+        }catch(e){
+            console.log(e);
+        }
+        return flag;
+    }
+</script>
+
+{% include"__copyRight.html" %}

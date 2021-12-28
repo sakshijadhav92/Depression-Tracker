@@ -1,0 +1,112 @@
+{% include "__header.html" %}
+   
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include "__userNavigation.html"%}
+        </div>
+
+        <div class="containerx" style="width: 100%;">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+           
+           
+            <!-- <iframe src="https://www.youtube.com/embed/uzBwU3GGUBI" frameborder="0"></iframe> -->
+        </div>
+        
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+            <form action="userprofile" class="form-section" method="POST" autocomplete="off" style="margin:auto;" onsubmit="return validation('0');">
+                <h2 class="heading-1" style="margin: 5%;">Update profile</h2>
+                <div class="name_class">
+                    <label for="nm">Name</label> 
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="user-icon"></div>
+                            </td>
+                            <td>
+                                {% set name= data.name.split(" ") %}
+                                <input type="text" name="fname" id="fn" placeholder="First name" value="{{name[0]}}"class="inp-section" required>                            
+                                <input type="text" name="lname" id="ln" placeholder="Last name"  value="{{name[1]}}" class="inp-section" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class="group-1">
+                    <label for="eml">Email Id</label>
+                    <input type="email" name="email" id="eml" value="{{ data.email }}" placeholder="example@domain.com" class="icon eml inp-section" required>
+                </span>
+                <small style="margin: auto; padding: 10px 5px; width: 90%;">
+                    If you do not intend to change the password keep both password and verification of password field blank and proceed for update.
+                </small>
+                <span class="group-1">
+                    <label for="pa">Password</label>
+                    <input type="password" name="password" id="pa" class="icon pass inp-section" placeholder="Password" >
+                </span>
+                <span class="group-1">
+                    <label for="rpa">Re-type password</label>
+                    <input type="password" name="rpassword" id="rpa" class="icon pass inp-section" placeholder="Password" >
+                </span>
+                <fieldset class="group-2">
+                    <legend>Gender</legend>
+                    
+                    <span>
+                        <input {% if data.gender=="male" %} checked {% endif %} type="radio" name="gender" id="m" value="male" >
+                        <label for="m">Male</label>
+                    </span>
+                    
+                    <span>
+                        <input {% if data.gender=="female" %} checked {% endif %} type="radio" name="gender" id="f" value="female">
+                        <label for="f">Female</label>
+                    </span>
+                    
+                    <span>
+                        <input {% if data.gender=="other" %} checked {% endif %} type="radio" name="gender" id="o" value="other">
+                        <label for="o">Other</label>
+                    </span>
+    
+                </fieldset>
+                <span class="group-1">
+                    <label for="dob">D.O.B</label>
+                    <input type="date" name="dob" id="dob" value="{{data.dob}}" class="icon dob inp-section" placeholder="yyyy-mm-dd" required>
+                </span>
+                <span class="group-1">
+                    <label for="c">Contact</label>
+                    <input type="text" maxlength="10" name="contact" id="c" value="{{data.contact}}"class="icon contact inp-section" placeholder="x x x x x x x x" required>
+                </span>
+                <span class="group-1">
+                    <label for="a">Aadhar No.</label>
+                    <input type="text" maxlength="12" name="aadhar" id="a" value="{{data.aadhar}}" class="icon num inp-section" placeholder="Aadhar number (12 digit)" required>
+                </span>
+                <span class="group-1">
+                    <textarea name="address" class=" icon addr textarea" id="txt" cols="30" rows="5" placeholder="Address" required>{{data.address}}</textarea>
+                </span>
+                <input type="submit" value="Edit information " class="submit btn btn--primary half-width">
+                <br>
+            </form>
+          
+        </main>
+        <script src="{{url_for('static', filename='/scripts/temp.js')}}"></script>
+    </div>
+
+{% include "__copyRight.html" %}
+
+

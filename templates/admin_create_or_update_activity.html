@@ -1,0 +1,205 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div class="containerx">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+            {% if request.args.get("id") %}
+            <button onclick="manageActivity(0)">Remove this activity</button>
+            <div class="form-section" style="border-radius:10px;">
+                <input type="hidden" id="_id" value="{{request.args.get('id')}}">
+                <h1 class="heading-1">Edit Activity</h1>
+                <span class="group-3">
+                    <label for="anme">Activity name</label>
+                    <span class="group-1">
+                      
+                        <input type="text" name="a_name" id="aname" placeholder="Activity name" value="{{activity.a_name}}" style="padding: 10px;" class="inp-section"> 
+                    </span>
+                </span>
+                <span class="group-3">
+                    <label for="st">Activity duration</label>
+                    <span class="group-1">
+                        <label for="st">Start Time</label>
+                        <input type="datetime-local" name="start" id="st" value="{{activity.start_time.strftime('%Y-%m-%dT%H:%M') }}" class="inp-section" style="padding: 10px;">
+                    </span>
+                    <span class="group-1">
+                        <label for="en">End Time</label>
+                        <input type="datetime-local" name="end" id="en" value="{{activity.end_time.strftime('%Y-%m-%dT%H:%M') }}"  class="inp-section" style="padding: 10px;">
+                    </span>
+                    
+                </span>
+                <span class="group-3">
+                    <label for="sum">Summary</label>
+                    <span class="group-1">
+                        <textarea name="summary" class="textarea" id="sum" cols="30" placeholder="Brief info for the activity" style="padding: 10px;" rows="4">{{activity.summary}}</textarea>
+                    </span>
+                </span>
+                <span class="group-3">
+                    <label for="ven">Venue</label>
+                    <span class="group-1">
+                        <textarea name="venue" class="textarea" id="ven" cols="30" placeholder="Address | Destination | Meet link" style="padding: 10px;" rows="4">{{activity.venue}}</textarea>
+                    </span>
+                </span>
+                <span class="group-2" style="visibility: hidden;">
+                    <span>
+                        <input {% if activity.status=="scheduled" %} checked {% endif %}type="radio" name="status" id="open" value="scheduled">
+                        <label for="open">Open</label>
+                      
+                    </span>
+                    <span>
+                        <input {% if activity.status=="closed" %} checked {% endif %} type="radio" name="status" id="close" value="closed">
+                        <label for="close">Close</label>
+                    </span>
+                </span>
+                <button type="submit" onclick="manageActivity(1)" class="submit btn btn--primary half-width">Update activity</button>
+            </form>
+            {% else %}
+            <form action="/manageActivities" class="form-section" style="border-radius: 10px;"method="POST">
+                <h1 class="heading-1">Create Activity</h1>
+                <span class="group-3">
+                    <label for="anme">Activity name</label>
+                    <span class="group-1">
+                        <input type="text" name="a_name" id="aname" placeholder="Activity name" style="padding: 10px;" class="inp-section" required>  
+                    </span>
+                </span>
+                <span class="group-3">
+                    <label for="st">Activity duration</label>
+                    <span class="group-1">
+                        <label for="st">Start</label>
+                        <input type="datetime-local" name="start" id="st"  class="inp-section" style="padding: 10px;" required>
+                    </span>
+                    <span class="group-1">
+                        <label for="en">End</label>
+                        <input type="datetime-local" name="end" id="en"  class="inp-section" style="padding: 10px;" required>
+                    </span>
+                </span>
+                <span class="group-3">
+                    <label for="sum">Summary</label>
+                    <span class="group-1">
+                        <textarea name="summary" class="textarea" id="sum" cols="30" placeholder="Brief info for the activity" style="padding: 10px;" rows="4" required></textarea>
+                    </span>
+                </span>
+                <span class="group-3">
+                    <label for="ven">Venue</label>
+                    <span class="group-1">
+                        <textarea name="venue" class="textarea" id="ven" cols="30" placeholder="Address | Destination | Meet link" style="padding: 10px;" rows="4" required></textarea>
+                    </span>
+                </span>
+                <input type="submit" value="Add activity" class="submit btn btn--primary half-width">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+        var yyyy = today.getFullYear();
+        var hr=today.getHours()
+        var min=today.getMinutes()
+        var sec="00"
+        if(dd<10){
+        dd='0'+dd
+        } 
+        if(mm<10){
+        mm='0'+mm
+        } 
+
+        today = yyyy+'-'+mm+'-'+dd+"T"+hr+":"+min
+        document.getElementById("st").setAttribute("min", today);
+        document.getElementById("en").setAttribute("min", today);
+
+        function manageActivity(tok){
+            const xhr=new XMLHttpRequest();
+           
+            
+
+            if (tok==1){
+                let _id=document.getElementById("_id").value;
+                let a_name=document.getElementById("aname").value;
+                let start=document.getElementById("st").value;
+                let end=document.getElementById("en").value;
+                let summary=document.getElementById("sum").value;
+                let venue=document.getElementById("ven").value;
+                let status=document.getElementsByName("status")
+                let sts=""
+                for(let i=0;i<status.length;i++){
+                    if (status[i].checked){
+                        sts=status[i].value;
+                    }
+                }
+                xhr.open("PUT", "{{request.root_url}}manageActivities");
+                xhr.setRequestHeader("Content-type", "application/json");
+                data={
+                    "_id":_id,
+                    "a_name":a_name,
+                    "start":start,
+                    "end":end,
+                    "summary":summary,
+                    "venue":venue,
+                    "status":sts
+                }
+                if(a_name!="" && start !="" && end!="" && summary!="" && venue!=""){
+                    if (sts=="closed"){
+                        if(confirm("Are you sure you want to close this activity")){
+                            xhr.send(JSON.stringify(data));
+                        }
+                    }else{
+                        xhr.send(JSON.stringify(data));
+                    }
+                }  else{
+                    alert("Empty fields");
+                }
+            }else{
+                let _id=document.getElementById("_id").value;
+                xhr.open("DELETE", "{{request.root_url}}manageActivities");
+                xhr.setRequestHeader("Content-type", "application/json");
+                data={
+                    "_id":_id,
+                }
+                if(confirm("Are you sure you want to delete this activity")){
+                    xhr.send(JSON.stringify(data));
+                }
+            }
+            xhr.onload= function(){
+                try{
+                    const jsnResp=JSON.parse(xhr.responseText);
+
+                    if(jsnResp['code']==200){
+                        alert(jsnResp['message'])
+                    }
+                    window.location.href="{{request.root_url}}manageActivities";
+
+                }catch(e){
+                    console.log(e);
+                }
+            }
+        }
+        
+
+    </script>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

@@ -1,0 +1,30 @@
+{%include"__header.html"%}
+    {%include"__navigation.html"%}
+    <div class="containerx">
+        <div class="sub-containerx">
+            <form action="" method="POST" autocomplete="off" class="form-section" style="border: 1px solid lightgrey; border-radius: 5px; padding:10px">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                    <li class="{{category}}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+                <h1 class="heading-1">Admin Login</h1>
+                <span class="group-1">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="icon eml inp-section" placeholder="adminemail@domain.com">
+                </span>
+                <span class="group-1">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="icon pass inp-section"  placeholder="Password">
+                </span>
+                <input type="submit" value="Login" class="submit btn btn--primary half-width">
+                <br>
+                <a href="/forgotpassword" class="link" style="text-decoration: underline;">Forgot password ?</a>
+            </form>
+        </div>
+    </div>
+{% include"__copyRight.html"%}

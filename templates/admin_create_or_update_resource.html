@@ -1,0 +1,102 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div class="containerx">
+            <div  class="form-section" style="border-radius: 5px;">
+                {% if request.args.get("id") != None %}
+                    <h1 class="heading-1">update resource</h1>
+                    <input type="hidden" name="" id="id" value="{{request.args.get('id')}}">
+                    <span class="group-1">
+                        <label for="type">Type</label>
+                        <select name="" id="type">
+                            <option value="None">select--</option>
+                            <option value="joke" {% if resource.type=='joke' %} selected {% endif %}>Joke</option>
+                            <option value="video" {% if resource.type=='video' %} selected {% endif %}>video</option>
+                            <option value="quote" {% if resource.type=='quote' %} selected {% endif %}>quote</option>
+                        </select>
+                    </span>
+                    <span class="group-1">
+                        <label for="rc">Resource</label>
+                        <textarea rows="5" cols="10" class="textarea" style="padding: 10px;" name="" placeholder="Resource" id="rc">{{resource.resource}}</textarea>
+                    </span>
+                    <button onclick="createOrUpdate(1)" class="submit btn btn--primary half-width">save</button>
+                {% else %}
+                    <h1 class="heading-1">create resource</h1>
+                    <span class="group-1">
+                        <label for="type">Type</label>
+                        <select name="" id="type">
+                            <option value="None">select--</option>
+                            <option value="joke" >Joke</option>
+                            <option value="video" >video</option>
+                            <option value="quote" >quote</option>
+                        </select>
+                    </span>
+                    <span class="group-1">
+                        <label for="rc">Resource</label>
+                        <textarea rows="5" cols="10" class="textarea" style="padding: 10px;" name="" placeholder="Resource" id="rc"></textarea>
+                    </span>
+                    <button onclick="createOrUpdate(2)" class="submit btn btn--primary half-width">save</button>
+                {% endif %}
+            </div>
+            <script>
+                function createOrUpdate(tok){
+                    let type=document.getElementById("type").value;
+                    let rc=document.getElementById("rc").value;
+                    
+                    const xhr=new XMLHttpRequest();
+                    if(type!="None" && rc!=""){
+                        if(tok==1){
+                            let id=document.getElementById("id").value;
+                            xhr.open( "PUT","{{request.root_url}}manageFunzone")
+                            xhr.setRequestHeader("Content-type", "application/json");
+                            data={
+                                "id":id,
+                                "type":type,
+                                "resource":rc
+                            }
+                            xhr.send(JSON.stringify(data));
+                        }else{
+                            xhr.open( "POST","{{request.root_url}}manageFunzone");
+                            xhr.setRequestHeader("Content-type", "application/json");
+                            data={
+                                "type":type,
+                                "resource":rc
+                            }
+                            xhr.send(JSON.stringify(data));
+                        }
+                        xhr.onload = ()=>{
+                            try{
+                                let jsnResponse=JSON.parse(xhr.responseText);
+                                alert(jsnResponse.message);
+                                if(jsnResponse.code==200){
+                                    window.location.href="{{request.root_url}}manageFunzone"
+                                }
+                            }catch(e){
+                                console.log(e);
+                            }
+                        }
+                    }else{
+                        alert("Empty fields");
+                    }
+                }
+            </script>
+        </div>
+        
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

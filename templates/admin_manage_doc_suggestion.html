@@ -1,0 +1,87 @@
+{% include"__header.html" %}
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" style="background-image: url({{url_for('static', filename='/images/demo/backgrounds/milky.jpg')}})">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include"__adminNavigation.html" %}
+        </div>
+        <div id="pageintro" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <article>
+                <p>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                        <li class="{{category}}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}    
+                </p>
+
+                <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+            </article>
+            <div class="containerx">
+                <a class="create-btn" href="/createOrUpdateDocSuggestion">create doctor suggestion</a>
+                <table>
+                    <th colspan="5"> Doctor suggestion</th>
+                    <tr>
+                        <td>Sr.No</td>
+                        <td>doc suggestion</td>
+                        <td>stress level</td>
+                        <td>edit</td>
+                        <td>delete</td>
+                    </tr>
+                    {% for docsuggestion in docsuggestions %}
+                    <tr>
+                       
+                       <td>{{ loop.index }}</td>
+                       <td>{{docsuggestion.doc_says}}</td>
+                       <td>{{docsuggestion.stress}}</td>
+                       <td><a class="edit-btn" href="/createOrUpdateDocSuggestion?id={{docsuggestion._id}}"></a></td>
+                       <td><button onclick="delete_doc_suggestion('{{docsuggestion._id}}')" class="delete-btn" ></button></td>
+                       
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- ################################################################################################ -->
+        </div>
+        <script>
+            function delete_doc_suggestion(id){
+                const xhr=new XMLHttpRequest();
+                xhr.open("DELETE", "{{request.root_url}}manageDocSuggestion");
+                xhr.onload=function(){
+                    let jsn=JSON.parse(xhr.responseText);
+                    if (jsn.code==200){
+                        alert(jsn.message);
+                        window.location.href="/manageDocSuggestion"
+                    }else{
+                        alert("an error occured");
+                    }
+                }
+                xhr.setRequestHeader("Content-type", "application/json");
+                req={
+                    "_id":id
+                }
+                if (confirm("Are you sure you want to remove this suggestion")){
+                    xhr.send(JSON.stringify(req));
+                }
+
+            }
+        </script>
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+
+    </div>
+
+
+    {% include"__copyRight.html" %}

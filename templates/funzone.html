@@ -1,0 +1,83 @@
+{% include "__header.html" %}
+   
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" >
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+           {% include "__userNavigation.html"%}
+        </div>
+
+        <div class="containerx" style="width: 100%;">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+           
+            <div class="section-2 ltr" style=" padding: 2% 0px; margin: 10% 0px; width: 85%;">
+                <h1 class="heading-1 card-b" id="quote" style="margin: auto 2%;">Thought of the moment</h1>
+                <h4 class="card-a">{{ resource.quote.resource }}</h4>
+            </div>
+            <hr>
+            <div class="section-2 rtl" style="padding: 2% 0px; margin: 10% 0px; width: 85%;">
+                <h1 class="heading-1 card-b" id="joke" style="margin: auto 2%;">Humor yourself! </h1>
+                <h4 class="card-a">{{ resource.joke.resource}}</h4>
+            </div>
+            <hr>
+            <div class="section-2" style="flex-direction: column;">
+                <h2>Todays motivaiton</h2>
+                <iframe src="{{resource.video.resource}}"  style="width:60vw; height:40vw;" frameborder="0"></iframe>
+            </div>
+            <!-- <iframe src="https://www.youtube.com/embed/uzBwU3GGUBI" frameborder="0"></iframe> -->
+        </div>
+        
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+           <h1 class="heading-1">Lets play a game!</h1>
+            {% if resource.game=="a" %}
+            <iframe src="{{url_for('static', filename='/games/game_a.html')}}" frameborder="0" style="width:100%;height: 700px;"></iframe>
+            {% elif resource.game=="b" %}
+            <iframe src="{{url_for('static', filename='/games/game_b.html')}}" frameborder="0" style="width:100%;height: 700px;"></iframe>
+            {% elif resource.game=="c" %}
+            <iframe src="{{url_for('static', filename='/games/game_c.html')}}" frameborder="0" style="width:100%;height: 700px;"></iframe>
+            {% elif resource.game=="d" %}
+            <iframe src="{{url_for('static', filename='/games/game_d.html')}}" frameborder="0" style="width:100%;height: 700px;"></iframe>
+            {% endif %}
+        </main>
+        <script>
+            try{
+                let q=document.getElementById("quote");
+                let j=document.getElementById("joke");
+                window.addEventListener("scroll", (e)=>{
+                    if(window.scrollY>=q.getBoundingClientRect().top)
+                    {
+                        q.classList.add("side-pop-left");
+                    }
+                    if(window.scrollY>=j.getBoundingClientRect().top)
+                    {
+                        j.classList.add("side-pop-right");
+                    }
+                });
+            }catch(e){
+                console.log(e);
+            }
+
+            
+
+        </script>
+    </div>
+
+{% include "__copyRight.html" %}

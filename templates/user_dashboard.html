@@ -1,0 +1,56 @@
+{% include "__header.html" %}
+  
+    <div class="wrapper overlay row0">
+
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded" style="background-image:url( {{url_for('static', filename='images/demo/backgrounds/happy.jpg')}});">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row1">
+            {% include"__userNavigation.html" %}
+        </div>
+        <div id="pageintro" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <article>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                    <li class="{{category}}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+                
+                
+
+
+                <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+            </article>
+            <!-- ################################################################################################ -->
+            {% include '__surveyForm.html' %}
+            <script>
+                setTimeout(function () {
+                    document.getElementById("surveyForm").classList.toggle("popup");
+                    document.getElementById('top').classList.toggle('make-blur');
+                }, 1000);
+        
+            </script>
+        </div>
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+
+           
+
+            <!-- / main body -->
+            <div class="clear"></div>
+        </main>
+    </div>
+    
+{% include "__copyRight.html" %}

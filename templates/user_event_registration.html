@@ -1,0 +1,257 @@
+{% include "__header.html" %}
+
+
+<div class="wrapper overlay row0">
+
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- Top Background Image Wrapper -->
+<div class="bgded">
+    <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        {% include"__navigation.html" %}
+    </div>
+    <div id="pageintro" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <article>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{category}}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+
+
+
+            <!-- if you can pass parameter here you can add welcome , name of the person or store any seesion variable instead-->
+        </article>
+        <!-- ################################################################################################ -->
+    </div>
+</div>
+<!-- End Top Background Image Wrapper -->
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <!-- main body -->
+
+
+
+        <div class="container my-4 border border-dark p-3">
+
+            <div class="text-center titlediv p-2">
+                <marquee>
+                    <h3>••Event Registration Form••</h3>
+                </marquee>
+            </div>
+            <section class="middle">
+
+                <div class="events">
+                    <img class="event-image" src="{{url_for('static',filename='images/demo/gallery/t.png')}}"
+                        class="image1" alt="">
+                    <img class="event-image" src="{{url_for('static',filename='images/demo/gallery/pot_making.png')}}"
+                        class="image2" alt="">
+                </div>
+
+                <form action="/eventRegistration" method="POST" onsubmit="return validate()">
+                    <div class="row-custom my-3">
+                        <div class="col-4" style="width: 250px; margin: 1%;">
+                            <div>
+                                <label class="fs-5 fw-bold" for="name">EVENTS:</label>
+                            </div>
+
+                            <div>
+                                <select name="activity_id" id="events" class="form-control" disabled
+                                    onchange="get_event_details()">
+                                    <option selected>Select Event</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-4" style="width: 250px; margin: 1%;">
+                            {% if session.get("user_id") %}    
+                                {% if session.get("user_id")=="1admin1"%}
+                                <div>
+                                    <label class="fs-5 fw-bold" for="pid">PATIENT ID:</label>
+                                </div>
+                                <div>
+                                    <select name="user_id" id="uid" class="form-control" onchange="get_details()">
+                                        <option selected value="None">Select id</option>
+                                        {% for id in ids %}
+                                        {% if id._id!="1admin1" %}
+                                        <option value="{{id._id}}">{{id._id}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>    
+                                {% else %}
+                                <input type="hidden" name="user_id" id="uid" value="{{session.get('user_id')}}">
+                                <script>
+                                    setTimeout(function () {
+                                        get_details()
+                                    }, 0)
+                                </script>
+                                {% endif %}
+                            {% else %}
+                        
+                        
+                        
+                            <div>
+                                <label class="fs-5 fw-bold" for="pid">PATIENT ID:</label>
+                            </div>
+                            <div>
+                                <select name="user_id" id="uid" class="form-control" onchange="get_details()">
+                                    <option selected value="None">Select id</option>
+                                    {% for id in ids %}
+                                    {% if id._id!="1admin1" %}
+                                    <option value="{{id._id}}">{{id._id}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+
+                    <div class="row-custom my-3">
+                        <div class="col-4" style="width: 250px;margin: 1%;">
+                            <div>
+                                <label class="fs-5 fw-bold" for="pname">PATIENT NAME:</label>
+                            </div>
+                            <div>
+                                <input readonly class="form-control" id="name" type="text" placeholder="Your name">
+                            </div>
+                        </div>
+                        <div class="col-4" style="width: 250px; margin: 1%;">
+                            <div>
+                                <label class="fs-5 fw-bold" for="pass">AGE:</label>
+                            </div>
+                            <div>
+                                <input readonly id="ag" name="user_age" class="form-control" type="text" name="age"
+                                    placeholder="Your age">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row-custom my-3">
+                        <div class="col-4" style="width: 250px;margin: 1%;">
+                            <div>
+                                <label class="fs-5 fw-bold" for="pname">GENDER</label>
+                            </div>
+                            <div>
+                                <input readonly id="gen" class="form-control" type="text" placeholder="GENDER">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="my-3" style="width: 50%; margin:auto; text-align: center;">
+                        <label class="fs-5 fw-bold" for="gender">Event summary</label>
+                    </div>
+                    <div class="row-custom">
+                        <div class="text" id="sum">Choose event</div>
+                    </div>
+                    <div class="mt-3" style="    align-self: center;width: fit-content;margin: auto;">
+                        <input class="btn btn-success" type="submit" value="submit">
+                    </div>
+                </form>
+
+                <div class="events">
+                    <img class="event-image" src="{{url_for('static',filename='images/demo/gallery/paint.png')}}"
+                        class="image3" alt="">
+                    <img class="event-image" src="{{url_for('static',filename='images/demo/gallery/meditation.png')}}"
+                        class="image4" alt="">
+                </div>
+
+        </div>
+
+        <!-- / main body -->
+        <div class="clear"></div>
+    </main>
+</div>
+
+<script>
+    var activities = null;
+    function get_details() {
+        let id = document.getElementById("uid");
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "{{ request.url_root }}userDetails");
+        xhr.onload = function () {
+            try {
+                let jsonResponse = JSON.parse(xhr.responseText);
+                console.log(jsonResponse);
+                document.getElementById("ag").value = jsonResponse.user_details['age']
+                document.getElementById("gen").value = jsonResponse.user_details["gender"]
+                document.getElementById("name").value = jsonResponse.user_details["name"]
+
+                let events = document.getElementById("events")
+                events.disabled = false;
+                events.innerHTML = ""
+                let option = document.createElement("option");
+                option.setAttribute("value", "None");
+                option.textContent = "Select event";
+                events.appendChild(option);
+                activities = jsonResponse.available_activities
+                for (let i = 0; i < activities.length; i++) {
+                    let option = document.createElement("option");
+                    option.setAttribute("value", activities[i]['_id']);
+                    option.textContent = activities[i]['a_name'];
+                    events.append(option);
+                }
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        xhr.setRequestHeader("content-type", "application/json")
+        req = {
+            "query": [id.value, "name", "age", "gender"]
+        }
+        if (id.value != "None") {
+            xhr.send(JSON.stringify(req));
+        } else {
+            document.getElementById("activity").disabled = true;
+        }
+    }
+    function get_event_details() {
+        let id = document.getElementById("events").value;
+        console.log(activities.length + " length")
+        document.getElementById("sum").innerHTML = "Choose event"
+        for (let i = 0; i < activities.length; i++) {
+            // console.log(activities[i]['id'])
+            // console.log(id+"selected id")
+            if (activities[i]["_id"] == id) {
+                let string = activities[i]["summary"] + "<br> <hr>"
+                string += "Event starts at : " + activities[i]["start"] + "<br>"
+                string += "Event ends at : " + activities[i]["end"] + "<br>"
+                string += "Venue of the event : " + activities[i]["venue"] + "<br>"
+                // console.log(string)
+                document.getElementById("sum").innerHTML = string
+                break;
+            }
+        }
+    }
+    function validate() {
+        let flag = true;
+        if (document.getElementById("sum").innerHTML == "Choose event") {
+            alert("you should choose an event before submiting this form.")
+            flag = false;
+        }
+        if (flag) {
+            return flag
+        }
+        else {
+            return false;
+        }
+        // return false;
+    }
+</script>
+
+{% include "__copyRight.html" %}
