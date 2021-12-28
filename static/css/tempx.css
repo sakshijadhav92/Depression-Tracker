@@ -1,0 +1,324 @@
+.section-1{
+
+    display: flex;
+    background: whitesmoke;
+    transform: rotate3d(0, 0, 0,0deg);
+    display: none;
+    flex-direction: column;
+    width: 90%;
+    transition-duration: 0s;
+    opacity: 0;
+    height: 0;
+}
+
+.survey-form{
+    display: flex;
+    margin:auto;
+    flex-direction: column;
+    background: ghostwhite;
+    /* position: absolute;
+    top: 30%;
+    left: 10%; */
+    margin-top: 90px;
+    border: 1px solid lightblue;
+    border-radius: 3px;
+    /* height: 290px; */
+    box-shadow: 0px 0px 5px 0px black;
+    padding: 20px;
+    z-index: 10;
+    filter: blur(0px);
+    width: 80%;
+    opacity: 0;
+}
+.question{
+    font-size: 35px;
+    font-weight: 900;
+    color:black;
+    font-family: poppin;
+    margin: 25px 0px;
+    line-height: normal;
+}
+.make-blur{
+    transition: all 1s ease-in-out;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('landingpagepic.jpg');background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+    z-index: -1;
+}
+.section-2{
+    display:flex;
+    justify-content: space-between;
+}
+.card-a{
+    width: 50vw;
+    font-size:3vw;
+    margin: auto 2%;
+    padding: 2%;
+}
+.card-b{
+    background-color: ghostwhite;
+    border-radius: 5px;
+    padding: 20px 40px;
+    transform:scaleX(0);
+    border: 1px solid lightgray;
+}
+.side-pop-left{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+.side-pop-right{
+    transform: scaleX(1);
+    transform-origin: right;
+}
+/* .section-3{
+    display: flex;
+
+} */
+
+.popup{
+    transition: 1s all ease-in-out;
+    opacity: 1;
+}
+.btn-nav{
+    font-size: 15px;
+    background: purple;
+    color:white;
+    width:100px;
+    margin-top: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 10px;
+}
+.front{
+    z-index: 1;
+    opacity: 1;
+    display: block;
+    transform-origin: left;
+    transition: all 1s ease-in-out;
+    transform: rotate3d(360, 0, 0,
+360deg);
+height: auto;
+}
+
+.btn-sub{
+    padding: 10px;
+    margin:  auto;
+    font-size: 15px;
+    background-color: rgb(53, 177, 53);
+    color:white;
+    height: fit-content;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+
+.mcqs{
+    display:flex; 
+    flex-wrap: wrap;
+}
+.mcqs input[type="radio"]{
+    display: none;
+}
+.mcqs input[type="radio"]:checked ~ label{
+    background-color: rgb(113, 172, 221);
+    color:white;
+    
+}
+.mcqs label{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    color:black;
+}
+.mcqs p{
+    margin: 10px;
+}
+
+.range{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+.range input[type='range']{
+    width: 90%;
+}
+.value{
+    display: block;
+    /* padding: 2px; */
+    border: 1px solid lightgrey;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    border-radius: 2px;
+    width: 40px;
+    height: 25px;
+}
+.activity-card:hover{
+    box-shadow: 0px 0px 3px 0px black;
+    cursor: pointer;
+}
+
+
+.activity-card{
+    padding: 15px;
+    margin:2% 3%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 0px 2px 0px black;
+    height:auto;
+    width:150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.activity-card label{
+    margin: auto;
+    color:rgba(0, 0, 0, 0.815);
+    font-weight: 600;
+}
+.activity-card-holder{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+}
+.group-3{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+.activities{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+}
+.booked-activity{
+    font-family: poppin;
+    font-weight: 500;
+    margin: 30px  auto ;
+    border-radius: 5px;
+    width: 60vw;
+    border: 1px solid lightgrey;
+    
+}
+.activity-status{
+    font-weight: 600;
+}
+
+.sh-part1{
+    width: 100%;
+    padding: 2%;
+    border-bottom: 1px solid lightgrey;
+}
+.sh-part2{
+    width: 95%;
+    margin: 10px auto;
+}
+.activity-summary{
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+.activity-venue{
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.activity-duration{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+.activity-duration label{
+    width: 190px;
+    text-align: center;
+}
+.col-sch{
+    color: steelblue;
+}
+.col-com{
+    color: rgb(49, 155, 49);
+}
+.col-ongoing{
+    color: orange;
+}
+
+.card-x{
+    display:block;
+    border:1px solid lightgrey;
+    border-radius: 5px;
+    padding: 10px;
+    width:190px;
+    height: 70px;
+}
+.card-x:hover{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+    box-shadow: 0px 0px 2px 1px;
+
+}
+
+
+
+.create-btn{
+    background-image: url(../images/add.svg);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 50px;
+    background-color: white;
+    margin: 2%;
+}
+.create-btn:hover{
+    background-color: lightgrey;
+    
+}
+
+
+.delete-btn{
+    background-image: url(../images/delete.svg);
+    border: none;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    margin: 2%;
+    opacity: 0.79;
+}
+.delete-btn:hover{
+    opacity: 1;
+    box-shadow: 0px 0px 2px 0px black;
+    cursor: pointer;
+}
+.edit-btn{
+    background-image: url(../images/edit.svg);
+    border: none;
+    padding: 15px;
+    padding-top: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    margin: 2%;
+    opacity: 0.79;
+}
+.edit-btn:hover{
+    opacity: 1;
+    box-shadow: 0px 0px 2px 0px black;
+    cursor: pointer;
+}
+
